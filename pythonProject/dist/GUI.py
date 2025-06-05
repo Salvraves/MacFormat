@@ -18,20 +18,20 @@ def convert_mac_routeros(mac_address):
 def convert_mac_zte(mac_address):
     return mac_address.replace(":", "")[:4] + "-" + mac_address.replace(":", "")[4:8] + "-" + mac_address.replace(":", "")[8:]
 
-# Функция для получения MAC-адреса из буфера обмена и его отображения
-def get_mac_address():
+# Функция для отображения MAC-адреса из буфера обмена
+def update_mac_address():
     mac_address = pyperclip.paste()
     mac_label.config(text=f"Mac: {mac_address}")
 
-# Функции для обработки кнопок и копирования преобразованного MAC в буфер обмена
+# Функция для обработки кнопок и копирования преобразованного MAC в буфер обмена
 def change_mac_format_and_copy(format_function):
     mac_address = pyperclip.paste()
     if len(mac_address) == 17 and mac_address.count(":") == 5:
         converted_mac = format_function(mac_address)
         pyperclip.copy(converted_mac)
-        result_label.config(text=f"Преобразованный MAC: {converted_mac}")
+        root.after(500, root.iconify)  # Скрываем окно через 500 миллисекунд
     else:
-        result_label.config(text="Неверный формат MAC-адреса")
+        mac_label.config(text="Неверный формат MAC-адреса")
 
 # Создаем GUI
 root = tk.Tk()
@@ -57,13 +57,8 @@ routeros_button.pack(pady=5)
 zte_button = tk.Button(root, text="ZTE", command=lambda: change_mac_format_and_copy(convert_mac_zte))
 zte_button.pack(pady=5)
 
-# Метка для вывода преобразованного MAC
-result_label = tk.Label(root, text="Преобразованный MAC: ")
-result_label.pack(pady=10)
-
-# Кнопка для получения MAC-адреса из буфера обмена
-get_mac_button = tk.Button(root, text="Получить MAC из буфера обмена", command=get_mac_address)
-get_mac_button.pack(pady=10)
+# Обновляем MAC-адрес сразу после старта программы
+update_mac_address()
 
 # Запуск приложения
 root.mainloop()
