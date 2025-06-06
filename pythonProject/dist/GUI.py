@@ -103,13 +103,18 @@ style.configure('TButton',
                 background="#333333",  # Темный фон
                 foreground="white",  # Белый текст
                 highlightthickness=2,  # Толщина контура
-                highlightbackground="green",  # Цвет контура при наведении
-                highlightcolor="green")  # Цвет контура при нажатии
+                highlightbackground="green",  # Зеленый контур при наведении
+                highlightcolor="green",  # Зеленый контур при активации
+                activebackground="#333333",  # Темный фон при нажатии
+                activeforeground="white",  # Белый текст при нажатии
+                focuscolor="green")  # Цвет фокуса, зеленый
+
 style.configure('TLabel',
                 font=('Arial', 12),
                 padding=10,
                 background="#333333",  # Темный фон
                 foreground="white")  # Белый текст
+
 style.configure('TFrame',
                 background="#333333")  # Темный фон для фрейма
 
